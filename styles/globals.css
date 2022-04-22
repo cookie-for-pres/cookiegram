@@ -14,3 +14,12 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.chakra-button, .chakra-button:hover, .chakra-input, .chakra-input:hover, .chakra-checkbox__control, .chakra-checkbox__control:hover {
+  outline: none !important;
+}
+
+*:focus, *:active {
+  outline: none !important;
+  box-shadow: none !important;
+}
