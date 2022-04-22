@@ -25,7 +25,7 @@ const Signup: NextPage = () => {
 
   return (
     <>
-      <MetaData title="Sign up" />
+      <MetaData title='Sign up' />
 
       <StartNavbar />
 
@@ -43,29 +43,33 @@ const Signup: NextPage = () => {
             <Stack spacing={4}>
               <HStack>
                 <Box>
-                  <FormControl id="firstName" isRequired>
-                    <FormLabel>First Name</FormLabel>
+                  <FormControl id='firstName' isRequired>
+                    <FormLabel>First name</FormLabel>
                     <Input
-                      type="text"
+                      type='text'
                       style={{ border: '1px solid #805AD5' }}
                     />
                   </FormControl>
                 </Box>
                 <Box>
-                  <FormControl id="lastName">
-                    <FormLabel>Last Name</FormLabel>
+                  <FormControl id='lastName'>
+                    <FormLabel>Last name</FormLabel>
                     <Input
-                      type="text"
+                      type='text'
                       style={{ border: '1px solid #805AD5' }}
                     />
                   </FormControl>
                 </Box>
               </HStack>
-              <FormControl id="email" isRequired>
-                <FormLabel>Email address</FormLabel>
-                <Input type="email" style={{ border: '1px solid #805AD5' }} />
+              <FormControl id='username' isRequired>
+                <FormLabel>Username</FormLabel>
+                <Input type='username' style={{ border: '1px solid #805AD5' }} />
               </FormControl>
-              <FormControl id="password" isRequired>
+              <FormControl id='email' isRequired>
+                <FormLabel>Email address</FormLabel>
+                <Input type='email' style={{ border: '1px solid #805AD5' }} />
+              </FormControl>
+              <FormControl id='password' isRequired>
                 <FormLabel>Password</FormLabel>
                 <InputGroup>
                   <Input
@@ -74,7 +78,7 @@ const Signup: NextPage = () => {
                   />
                   <InputRightElement h={'full'}>
                     <Button
-                      bg="transparent"
+                      bg='transparent'
                       color={showPassword ? '#805AD5' : 'gray.600'}
                       _hover={{ bg: 'transparent' }}
                       _active={{ bg: 'transparent' }}
@@ -89,7 +93,7 @@ const Signup: NextPage = () => {
                 </InputGroup>
               </FormControl>
               <Stack spacing={10} pt={2}>
-                <Button loadingText="Submitting" size="lg" variant={'primary'}>
+                <Button loadingText='Submitting' size='lg' variant={'primary'}>
                   Sign up
                 </Button>
               </Stack>

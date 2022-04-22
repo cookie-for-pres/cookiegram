@@ -8,10 +8,10 @@ const ButtonStyles = {
       bg: 'primary',
       color: 'white',
       _hover: {
-        bg: darken('primary', 10),
+        bg: darken('primary', 5),
       },
       _active: {
-        bg: darken('primary', 10),
+        bg: darken('primary', 5),
       }
     }),
     secondary: () => ({
