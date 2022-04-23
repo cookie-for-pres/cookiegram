@@ -101,6 +101,11 @@ const signup = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
       } 
     });
 
+    const date = new Date();
+    if (date.getMonth() < 4) {
+      account.personal.badges.push('beta tester');
+    }
+
     await account.save();
     return res.json({ message: 'account created', success: true });
   } catch (err) {

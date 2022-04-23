@@ -28,10 +28,10 @@ const ButtonStyles = {
       bg: 'red.500',
       color: 'white',
       _hover: {
-        bg: darken('red.500', 5),
+        bg: darken('red.500', 2.5),
       },
       _active: {
-        bg: darken('red.500', 5),
+        bg: darken('red.500', 2.5),
       }
     }),
   },

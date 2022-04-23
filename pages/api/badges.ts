@@ -8,10 +8,10 @@ import db from '../../lib/db';
 type Data = {
   message: string;
   success: boolean;
-  data?: any;
+  badges?: string[];
 };
 
-const dashboard = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
+const badges = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   if (req.method !== 'GET') {
     return res.status(405).json({
       message: 'method not allowed',
@@ -44,18 +44,11 @@ const dashboard = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
       .json({ message: 'cant find account', success: false });
   }
 
-  return res.status(200).json({
+  return res.json({
     message: 'success',
     success: true,
-    data: {
-      username: account.username,
-      bio: account.personal.bio,
-      avatar: account.personal.avatar,
-      followers: account.followers.length,
-      following: account.following.length,
-      badges: account.personal.badges,
-    },
+    badges: account.personal.badges,
   });
-};
+}
 
-export default dashboard;
+export default badges;

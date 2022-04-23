@@ -11,7 +11,7 @@ type Data = {
   data?: any;
 };
 
-const dashboard = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
+const verify = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   if (req.method !== 'GET') {
     return res.status(405).json({
       message: 'method not allowed',
@@ -46,16 +46,8 @@ const dashboard = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 
   return res.status(200).json({
     message: 'success',
-    success: true,
-    data: {
-      username: account.username,
-      bio: account.personal.bio,
-      avatar: account.personal.avatar,
-      followers: account.followers.length,
-      following: account.following.length,
-      badges: account.personal.badges,
-    },
+    success: true
   });
 };
 
-export default dashboard;
+export default verify;

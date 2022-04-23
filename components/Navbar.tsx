@@ -24,6 +24,7 @@ import {
 } from '@chakra-ui/icons';
 import Cookies from 'universal-cookie';
 import { useEffect } from 'react';
+import axios from 'axios';
 
 const Navbar = ({ page }: any) => {
   const { isOpen, onToggle } = useDisclosure();
@@ -36,7 +37,24 @@ const Navbar = ({ page }: any) => {
   };
 
   useEffect(() => {
-    
+    const token = cookie.get('token');
+    axios.get('/api/verify', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((res) => {
+      const { success } = res.data;
+
+      if (!success) {
+        logout();
+      }
+    }).catch((err) => {
+      const { message } = err.response.data;
+
+      if (message === 'invalid token' || message === 'cant find account' || message === 'unauthorized') {
+        logout();
+      }
+    })
   }, [page]);
 
   return (
