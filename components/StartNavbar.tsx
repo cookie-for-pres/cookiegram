@@ -30,7 +30,7 @@ const StartNavbar = () => {
   return (
     <Box>
       <Flex
-        bg='blackAlpha.200'
+        bg='blackish'
         color='white'
         minH={'60px'}
         py={{ base: 2 }}
@@ -273,11 +273,7 @@ const NAV_ITEMS: Array<NavItem> = [
   {
     label: 'Home',
     href: '/',
-  },
-  {
-    label: 'About',
-    href: 'about',
-  },
+  }
 ];
 
 export default StartNavbar;

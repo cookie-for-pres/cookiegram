@@ -7,6 +7,7 @@ const theme = extendTheme({
   colors: {
     primary: '#805AD5',
     black: '#121212',
+    blackish: '#1a1a1a',
   },
   styles: {
     global: {

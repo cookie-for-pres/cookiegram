@@ -9,7 +9,7 @@ const MetaData = ({ title }: any) => {
         </title>
         <link rel='icon' href='/favicon.ico' />
         <meta name='theme-color' content='#805AD5' />
-        <meta name='description' content='CookieGram is a social media... i think?' />
+        <meta name='description' content='CookieGram is a social media app... i think?' />
         <link rel='apple-touch-icon' href='/images/apple-touch-icon.png' />
         <link rel='manifest' href='/site.webmanifest' />
       </Head>
