@@ -5,8 +5,8 @@ delete connection.models['accounts'];
 
 const accountSchema  = new Schema({
   _id: { type: String, required: true },
-  username: { type: String, required: true, unique: true, minlength: 3, maxlength: 20 },
-  email: { type: String, required: true, unique: true, minlength: 3, maxlength: 50 },
+  username: { type: String, required: true, unique: true, minlength: 2, maxlength: 20 },
+  email: { type: String, required: true, unique: true, minlength: 3, maxlength: 100 },
   password: { type: String, required: true, minlength: 8, maxlength: 100 },
   followers: { type: Array, default: [] },
   following: { type: Array, default: [] },

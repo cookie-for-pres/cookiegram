@@ -24,6 +24,33 @@ const otp = (length: number) => {
   return result;
 };
 
+const isUsername = (username: string) => {
+  if (username.length < 3) {
+    return false;
+  } else if (username.length > 20) {
+    return false;
+  } else {
+    const regex = /^[a-zA-Z0-9_]+$/;
+    return regex.test(username);
+  }
+};
+
+const isEmail = (email: string) => {
+  const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return regex.test(email);
+}
+
+const isPassword = (password: string) => {
+  if (password.length < 8) {
+    return false;
+  } else if (password.length > 50) {
+    return false;
+  } else {
+    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    return regex.test(password);
+  }
+};
+
 const signup = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   if (req.method !== 'POST') {
     return res
@@ -38,6 +65,20 @@ const signup = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     return res
       .status(400)
       .json({ message: 'please fill in all fields', success: false });
+  }
+
+  if (!isUsername(username)) {
+    return res
+      .status(400)
+      .json({ message: 'username must be more then 2 and less then 20 characters, and also must only include letters, numbers, and underscores', success: false });
+  } else if (!isEmail(email)) {
+    return res
+      .status(400)
+      .json({ message: 'please enter a valid email', success: false });
+  } else if (!isPassword(password)) {
+    return res
+      .status(400)
+      .json({ message: 'password must be more then 8 characters, and must include at least one uppercase letter, one lowercase letter, one number, and one special character', success: false });
   }
 
   await db();
