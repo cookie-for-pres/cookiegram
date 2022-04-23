@@ -1,16 +1,19 @@
 import type { NextPage } from 'next';
 import { useState, useEffect } from 'react';
+import { Flex, Heading, Stack, Button } from '@chakra-ui/react';
+import { useRouter } from 'next/router';
 import axios from 'axios';
-import { Flex, Heading, Stack } from '@chakra-ui/react';
 import Cookies from 'universal-cookie';
 
 import MetaData from '../components/MetaData';
+import Navbar from '../components/Navbar';
 
 import withAuth from '../hooks/withAuth';
 
 const Dashboard: NextPage = () => {
   const [username, setUsername] = useState('');
 
+  const router = useRouter();
   const cookie = new Cookies();
 
   useEffect(() => {
@@ -30,16 +33,19 @@ const Dashboard: NextPage = () => {
       const data = err.response.data;
 
       cookie.remove('token');
+      router.push('/signin');
 
       if (data.message) {
         console.log(data.message);
       }
     });
-  }, [])
+  }, []);
 
   return (
     <>
       <MetaData title='Dashboard' />
+
+      <Navbar />
       
       <Flex
         minH={'75vh'}

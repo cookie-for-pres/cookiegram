@@ -24,6 +24,16 @@ const ButtonStyles = {
         color: 'primary'
       }
     }),
+    red: () => ({
+      bg: 'red.500',
+      color: 'white',
+      _hover: {
+        bg: darken('red.500', 5),
+      },
+      _active: {
+        bg: darken('red.500', 5),
+      }
+    }),
   },
   defaultProps: {}
 };
