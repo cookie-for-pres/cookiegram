@@ -71,12 +71,7 @@ const signup = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     personal: {
       firstName,
       lastName,
-    },
-    verify: {
-      code,
-      tries: 0,
-      verified: false,
-    },
+    }
   });
 
   try {
@@ -96,7 +91,7 @@ const signup = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
       text: `As of now, you CookieGram is in development but now that you have signed up you get a nice "Beta Tester" badge next to your name whenever CookieGram drops.`,
     };
 
-    transporter.sendMail(options, async (error, info) => {
+    transporter.sendMail(options, async (error) => {
       if (error) {
         console.log(error);
 

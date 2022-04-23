@@ -23,8 +23,9 @@ import {
   ChevronRightIcon,
 } from '@chakra-ui/icons';
 import Cookies from 'universal-cookie';
+import { useEffect } from 'react';
 
-const Navbar = () => {
+const Navbar = ({ page }: any) => {
   const { isOpen, onToggle } = useDisclosure();
   const router = useRouter();
   const cookie = new Cookies();
@@ -33,6 +34,10 @@ const Navbar = () => {
     cookie.remove('token');
     router.push('/signin');
   };
+
+  useEffect(() => {
+    
+  }, [page]);
 
   return (
     <Box>

@@ -9,10 +9,10 @@ import Account from '../../models/Account';
 import db from '../../lib/db';
 
 type Data = {
-  message: string,
-  success: boolean,
-  token?: string,
-}
+  message: string;
+  success: boolean;
+  token?: string;
+};
 
 const signin = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   if (req.method !== 'POST') {
@@ -20,26 +20,34 @@ const signin = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
       .status(405)
       .json({ message: 'method not allowed', success: false });
   }
-  
+
   const { username, password } = req.body;
   const ip = requestIp.getClientIp(req);
 
   if (!username || !password) {
-    return res.status(400).json({ message: 'please fill in all fields', success: false });
+    return res
+      .status(400)
+      .json({ message: 'please fill in all fields', success: false });
   }
 
   await db();
 
-  const account = await Account.findOne({ $or: [{ username }, { email: username }] });
+  const account = await Account.findOne({
+    $or: [{ username }, { email: username }],
+  });
 
   if (!account) {
-    return res.status(400).json({ message: 'account not found', success: false });
+    return res
+      .status(400)
+      .json({ message: 'account not found', success: false });
   }
-  
+
   const isMatch = await bcryptjs.compare(password, account.password);
 
   if (!isMatch) {
-    return res.status(400).json({ message: 'incorrect password', success: false });
+    return res
+      .status(400)
+      .json({ message: 'incorrect password', success: false });
   }
 
   if (!account.knownIPs.includes(ip)) {
@@ -59,7 +67,7 @@ const signin = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
       text: `Someone just logged in to your account from ${ip}. If this was you, please ignore this email. If not, please contact us immediately.`,
     };
 
-    transporter.sendMail(options, async (error, info) => {
+    transporter.sendMail(options, async (error) => {
       if (error) {
         console.log(error);
       } else {
@@ -74,7 +82,15 @@ const signin = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   // @ts-ignore
   const token = jwt.sign({ _id: account._id }, process.env.JWT_SECRET);
 
-  return res.status(200).json({ message: 'account signed in', success: true, token });
+  account.token = token;
+  account.logins.push({ ip, date: new Date() });
+  account.tokens.push({ token, date: new Date() });
+
+  await account.save();
+
+  return res
+    .status(200)
+    .json({ message: 'account signed in', success: true, token });
 };
 
 export default signin;
