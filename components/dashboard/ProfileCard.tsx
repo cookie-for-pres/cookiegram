@@ -9,6 +9,7 @@ import {
   Text,
   Stack,
   Button,
+  Tooltip
 } from '@chakra-ui/react';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
@@ -19,34 +20,39 @@ const getBadges = (badges: string[]): JSX.Element[] => {
   badges.forEach((badge, i) => {
     if (badge === 'owner') {
       const item = (
-        <i
-          className='fa-solid fa-crown'
-          title='Owner'
-          style={{ color: 'var(--gold)', fontSize: '1.35rem' }}
-          key={i}
-        />
+        <>
+          <Tooltip label="Owner">
+            <i
+              className='fa-solid fa-crown'
+              style={{ color: 'var(--gold)', fontSize: '1.35rem' }}
+              key={i}
+            />
+          </Tooltip>
+        </>
       );
 
       badgeList.push(item);
     } else if (badge === 'beta tester') {
       const item = (
-        <i 
-          className='fa-solid fa-vial' 
-          title='Beta Tester' 
-          style={{ color: 'var(--primary)', fontSize: '1.35rem' }}
-          key={i}
-        />
+        <Tooltip label="Beta Tester">
+          <i 
+            className='fa-solid fa-vial' 
+            style={{ color: 'var(--primary)', fontSize: '1.35rem' }}
+            key={i}
+          />
+        </Tooltip>
       );
 
       badgeList.push(item);
     } else if (badge === 'admin') {
       const item = (
-        <i 
-          className='fa-solid fa-user-shield' 
-          title='Admin'
-          style={{ color: 'var(--red)', fontSize: '1.35rem' }}
-          key={i}
-        />
+        <Tooltip label="Admin">
+          <i 
+            className='fa-solid fa-user-shield' 
+            style={{ color: 'var(--red)', fontSize: '1.35rem' }}
+            key={i}
+          />
+        </Tooltip>
       );
 
       badgeList.push(item);
