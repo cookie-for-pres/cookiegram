@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import axios from 'axios';
+import Cookies from 'universal-cookie';
 import {
   Flex,
   Box,
@@ -36,6 +37,7 @@ const Signin: NextPage = () => {
 
   const toast = useToast();
   const router = useRouter();
+  const cookie = new Cookies();
 
   const signin = async () => {
     try {
@@ -56,7 +58,7 @@ const Signin: NextPage = () => {
           position: 'top-right',
         });
   
-        localStorage.setItem('token', data.token);
+        cookie.set('token', data.token, { path: '/', maxAge: 60 * 60 * 24 * 7 });
   
         setTimeout(() => {
           router.push('/dashboard');

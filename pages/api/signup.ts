@@ -104,7 +104,15 @@ const signup = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
           .status(400)
           .json({ message: 'error creating account', success: false });
       } else {
-        await account.save();
+        try {
+          await account.save();
+        } catch(err) {
+          console.log(err);
+
+          return res
+            .status(400)
+            .json({ message: 'error creating account or account already exist', success: false });
+        } 
       }
     });
 

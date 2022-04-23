@@ -2,6 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import bcryptjs from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import requestIp from 'request-ip';
+import nodemailer from 'nodemailer';
 
 import Account from '../../models/Account';
 
@@ -42,6 +43,30 @@ const signin = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   }
 
   if (!account.knownIPs.includes(ip)) {
+    const transporter = nodemailer.createTransport({
+      host: 'smtp.gmail.com',
+      port: 587,
+      auth: {
+        user: process.env.EMAIL_USERNAME,
+        pass: process.env.EMAIL_PASSWORD,
+      },
+    });
+
+    const options = {
+      from: '"CookieGram 🍪" < ' + process.env.EMAIL_USERNAME + ' >',
+      to: account.email,
+      subject: 'New login detected!',
+      text: `Someone just logged in to your account from ${ip}. If this was you, please ignore this email. If not, please contact us immediately.`,
+    };
+
+    transporter.sendMail(options, async (error, info) => {
+      if (error) {
+        console.log(error);
+      } else {
+        await account.save();
+      }
+    });
+
     account.knownIPs.push(ip);
     await account.save();
   }

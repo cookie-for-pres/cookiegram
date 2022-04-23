@@ -1,7 +1,8 @@
 import type { NextPage } from 'next';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Box, Flex, Heading, Stack } from '@chakra-ui/react';
+import { Flex, Heading, Stack } from '@chakra-ui/react';
+import Cookies from 'universal-cookie';
 
 import MetaData from '../components/MetaData';
 
@@ -10,8 +11,10 @@ import withAuth from '../hooks/withAuth';
 const Dashboard: NextPage = () => {
   const [username, setUsername] = useState('');
 
+  const cookie = new Cookies();
+
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    const token = cookie.get('token');
     axios.get('/api/dashboard', {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -26,7 +29,7 @@ const Dashboard: NextPage = () => {
     }).catch((err: any) => {
       const data = err.response.data;
 
-      localStorage.removeItem('token');
+      cookie.remove('token');
 
       if (data.message) {
         console.log(data.message);
