@@ -144,7 +144,7 @@ const Signin: NextPage = () => {
                   align={'start'}
                   justify={'space-between'}
                 >
-                  <Link href='forgot-password'>
+                  <Link href='forgot-password' passHref>
                     <PrimaryLink>Forgot password?</PrimaryLink>
                   </Link>
                 </Stack>
@@ -152,7 +152,7 @@ const Signin: NextPage = () => {
               </Stack>
               <Stack pt={6}>
                 <Text align={'center'}>
-                  Don't have an account?{' '}
+                  {'Don\'t '}have an account?{' '}
                   <Link href='signup' passHref>
                     <PrimaryLink>Sign up</PrimaryLink>
                   </Link>
