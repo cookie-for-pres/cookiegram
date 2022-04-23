@@ -2,8 +2,8 @@ import type { NextPage } from 'next';
 import { useState, useEffect } from 'react';
 import { Flex, Heading, Stack, Button } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-import axios from 'axios';
 import Cookies from 'universal-cookie';
+import axios from 'axios';
 
 import MetaData from '../components/MetaData';
 import Navbar from '../components/Navbar';
